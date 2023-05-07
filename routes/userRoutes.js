@@ -15,7 +15,6 @@ const {
     getMachinesByOpController,
     bookingAvailabilityController,
 } = require("../controllers/machineController");
-const {uploadPhotoController} = require('../controllers/applicationController')
 const { loginController, registerController, authController, userAppointmentsController, getAllAppsController, ApplicationsController, getAllData ,checkPasswordController,
     changePasswordController,} = require('../controllers/userController');
 const authMiddleware = require('../middlewares/authMiddleware');
@@ -69,6 +68,22 @@ router.post('/getsampledetails',getSampleDetails);
 //POST
 router.post('/applyforsd',applyForSD)
 
+
+//code for middleware of multer
+var multer = require('multer');
+ 
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+ 
+var upload = multer({ storage: storage });
+
+
 //POST
 router.post('/applyformachine',applyForMachine)
 
@@ -86,9 +101,6 @@ router.post('/getAllData',getAllData)
 
 //POST getalldata
 router.post("/booking-availbility", bookingAvailabilityController);
-
-// //POST getalldata
-// router.post("/upload", uploadPhotoController);
 
 //POST editmachine
 //POST
