@@ -15,6 +15,7 @@ const {
     getMachinesByOpController,
     bookingAvailabilityController,
 } = require("../controllers/machineController");
+const {uploadPhotoController} = require('../controllers/applicationController')
 const { loginController, registerController, authController, userAppointmentsController, getAllAppsController, ApplicationsController, getAllData ,checkPasswordController,
     changePasswordController,} = require('../controllers/userController');
 const authMiddleware = require('../middlewares/authMiddleware');
@@ -85,6 +86,9 @@ router.post('/getAllData',getAllData)
 
 //POST getalldata
 router.post("/booking-availbility", bookingAvailabilityController);
+
+// //POST getalldata
+// router.post("/upload", uploadPhotoController);
 
 //POST editmachine
 //POST

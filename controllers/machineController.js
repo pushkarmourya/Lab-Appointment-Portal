@@ -21,6 +21,10 @@ const addMachineController = async (req, res) => {
         // console.log(req.body);
         const newMachine = new machineModel(req.body);
         await newMachine.save();
+        const user = await userModel.findOne({_id:req.body.userId})
+        console.log(user)
+        user.machine.push(newMachine._id)
+        await user.save()
 
         res.status(201).send({
             message: "Machine Registered Successfully",
@@ -31,7 +35,7 @@ const addMachineController = async (req, res) => {
         res.status(500).send({
             success: false,
             message: `Machine Controller ${error.message}`,
-        });
+        });
     }
 };
 
@@ -283,29 +287,7 @@ const applyForMachine = async (req, res) => {
         //   userId:req.body.userID,
         // }
         const appl = { ...req.body };
-        // console.log(appl);
-        // console.log('here')
-        const existingapplication = await applyMachineModel.findOne({
-            name: appl.name,
-            typeofequip: appl.typeofequip,
-            typeofmachine: appl.typeofmachine,
-            typeofop: appl.typeofop,
-            nameofthemachine: appl.nameofthemachine,
-            phone: appl.phone,
-            designation: appl.designation,
-            institution: appl.institution,
-            from: appl.from,
-            date: appl.date,
-            to: appl.to,
-        });
-        // console.log('here1')
-        if (existingapplication) {
-            return res
-                .status(200)
-                .send({ message: "Application Already Exist", success: false });
-        }
-        // console.log('here2')
-        // console.log(req.body);
+        appl.photo = new Buffer(appl.photo, "base64");
         const newApplication = new applyMachineModel(appl);
         await newApplication.save();
         // console.log('here3')
