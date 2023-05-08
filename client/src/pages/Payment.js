@@ -109,7 +109,7 @@ const Payment = () => {
                     </Col>
                 </Row>
 
-                <h4>Payment Link : link</h4>
+                <h4>Payment Link :</h4> <a href="https://www.onlinesbi.com/sbicollect/icollecthome.htm?corpID=1968961">SBI Collect</a>
                 <Row>
                     <Col>
                         <Form.Item
